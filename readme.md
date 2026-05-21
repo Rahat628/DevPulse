@@ -4,6 +4,8 @@
 3. typescript
 4.express
 5. postgresql
+6.bcrypt
+7. jwt
 
 🗄️ Database Schema Design
 Table 1: users
