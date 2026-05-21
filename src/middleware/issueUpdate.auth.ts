@@ -20,7 +20,7 @@ const issueUpdateAuth = () => {
                 if(result.rows.length === 0){
                     throw new Error("Issue not found")
                 }
-                if(result.rows[0].reported_id !== req.user?.id && result.rows[0].status === 'open'){
+                if(result.rows[0].reported_id !== req.user?.id && result.rows[0].status !== 'open'){
                     throw new Error("Forbidden Access")
                 }
             }

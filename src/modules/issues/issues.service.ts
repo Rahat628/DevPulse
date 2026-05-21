@@ -47,10 +47,18 @@ const updateIssueQuery = async (issue_id: string, payload: any) => {
     return result
 }
 
+const deleteIssueQuery = async (issue_id: string) => {
+    const result = pool.query(`DELETE FROM issues
+        WHERE id = $1
+    `, [issue_id])
+    return result
+}
+
 
 export const issuesService = {
     createIssuesQuery,
     getIssuesQuery,
     getSingleIssueQuery,
-    updateIssueQuery
+    updateIssueQuery,
+    deleteIssueQuery
 }
