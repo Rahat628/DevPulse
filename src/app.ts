@@ -1,12 +1,15 @@
-import express from "express"
+import express, { type Application } from "express"
+import authRouter from "./modules/auth/auth.route";
 
 
-const app = express();
+const app: Application = express();
 
-app.use(express.json)
+app.use(express.json())
 
-app.get('/', (req, res) => {
+app.get('/users', (req, res) => {
   res.send('Hello World!');
 });
+
+app.use('/api/auth', authRouter)
 
 export default app
