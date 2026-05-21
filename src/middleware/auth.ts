@@ -4,6 +4,8 @@ import jwt, { type JwtPayload } from "jsonwebtoken";
 import { pool } from "../db/initDB";
 import config from "../config";
 
+// this auth checks jwtToken and also checks if the user has the require role and valid user or not
+
 const auth = (...roles: UserRole[]) => {
     return async (req: Request, res: Response, next: NextFunction) => {
         try {
