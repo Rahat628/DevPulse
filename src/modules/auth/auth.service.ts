@@ -1,7 +1,7 @@
 import { pool } from "../../db/initDB";
 import bcrypt from "bcrypt"
 import type { IUser } from "./users.interface";
-import jwt from "jsonwebtoken"
+import jwt, { type JwtPayload } from "jsonwebtoken"
 import config from "../../config";
 
 const userSignUpQuery = async (payload: IUser) => {
@@ -31,15 +31,14 @@ const userSignInQuery = async (payload: { email: string, password: string }) => 
     }
 
     const user = result.rows[0]
-    console.log(user)
 
     const jwtPayload = {
         id : user.id,
         name : user.name,
         role : user.role
-    }
+    } as JwtPayload
 
-    const accessToken = jwt.sign(payload,config.jwtSecret as string, {expiresIn : '1d'})
+    const accessToken = jwt.sign(jwtPayload,config.jwtSecret as string, {expiresIn : '1d'})
 
     return {accessToken};
 
