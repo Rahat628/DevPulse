@@ -1,7 +1,8 @@
 import { pool } from "../../db/initDB"
-import { type type, type status } from "../../types/index"
+import { type Type, type status } from "../../types/index"
+import { type IIssue } from "./issues.interface"
 
-const createIssuesQuery = async (payload: any, reporter_id: number) => {
+const createIssuesQuery = async (payload: IIssue, reporter_id: number) => {
     const { title, description, type } = payload
     const result = pool.query(`INSERT INTO issues(title, description,type, reporter_id)
         VALUES($1,$2,$3,$4)
@@ -10,7 +11,7 @@ const createIssuesQuery = async (payload: any, reporter_id: number) => {
     return result
 }
 // reporter_id not done
-const getIssuesQuery = async (sort: string, type: type, status: status) => {
+const getIssuesQuery = async (sort: string, type: Type, status: status) => {
 
     let sortQuery = 'DESC'
     if (sort === 'oldest') {
@@ -35,7 +36,7 @@ const getSingleIssueQuery = async (issue_id: string) => {
     return result
 }
 
-const updateIssueQuery = async (issue_id: string, payload: any) => {
+const updateIssueQuery = async (issue_id: string, payload: IIssue) => {
     const {title, description, type} = payload
     const result = pool.query(`UPDATE issues
         SET title = COALESCE($1, title),

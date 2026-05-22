@@ -3,6 +3,7 @@ import type { UserRole } from "../types";
 import jwt, { type JwtPayload } from "jsonwebtoken";
 import { pool } from "../db/initDB";
 import config from "../config";
+import { sendResponse } from "../utils/sendResponse";
 
 // this auth checks jwtToken and also checks if the user has the require role and valid user or not
 
@@ -10,7 +11,7 @@ const auth = (...roles: UserRole[]) => {
     return async (req: Request, res: Response, next: NextFunction) => {
         try {
             const token = req.headers.authorization
-            const decoded: JwtPayload = jwt.verify(token as string, config.jwtSecret as string) as { role: UserRole }
+            const decoded = jwt.verify(token as string, config.jwtSecret as string) as JwtPayload
             // if decoded result is not valid then throw error
             if (!decoded) {
                 throw new Error("Invalid token")
@@ -35,11 +36,8 @@ const auth = (...roles: UserRole[]) => {
 
         }
         catch (err: any) {
-            res.status(401).json({
-                success: false,
-                message: err.message,
-                error: err
-            })
+            sendResponse( res, { statusCode: 401, success: false, message: err.message, error: err })
+
 
         }
 

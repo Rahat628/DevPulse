@@ -1,6 +1,7 @@
 import { type NextFunction, type Request, type Response } from "express";
 import { Roles } from "../types";
 import { pool } from "../db/initDB";
+import { sendResponse } from "../utils/sendResponse";
 
 
 
@@ -30,11 +31,8 @@ const issueUpdateAuth = () => {
 
         }
         catch (err: any) {
-            res.status(401).json({
-                success: false,
-                message: err.message,
-                error: err
-            })
+
+            sendResponse( res, { statusCode: 401, success: false, message: err.message, error: err })
 
         }
 
