@@ -39,8 +39,8 @@ const userSignInQuery = async (payload: { email: string, password: string }) => 
     } as JwtPayload
 
     const accessToken = jwt.sign(jwtPayload,config.jwtSecret as string, {expiresIn : '1d'})
-
-    return {accessToken};
+    delete user.password
+    return {token : accessToken, user : user};
 
 }
 

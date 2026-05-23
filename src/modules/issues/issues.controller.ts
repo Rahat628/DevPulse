@@ -52,10 +52,7 @@ const updateIssue = async (req: Request, res: Response) => {
     try {
         const { id } = req.params
         const result = await issuesService.updateIssueQuery(id as string, req.body)
-        if(result === null){
-            return sendResponse(res, { statusCode: 404, success: false, message: "Issue not found", data: {} })
-        }
-        console.log(result)
+        
         if (result.rows.length === 0) {
             return sendResponse(res, { statusCode: 404, success: false, message: "Issue not found", data: {} })
         }

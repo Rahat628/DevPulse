@@ -5,11 +5,11 @@ import { sendResponse } from "../../utils/sendResponse"
 const userSignUp = async (req: Request, res: Response) => {
     try {
         const result = await authService.userSignUpQuery(req.body)
-        sendResponse(res, { statusCode: 201, success: true, message: "User signed up", data: result.rows[0] })
+        sendResponse(res, { statusCode: 201, success: true, message: "User registered successfully", data: result.rows[0] })
 
     }
     catch (err: any) {
-        sendResponse(res, { statusCode: 500, success: false, message: "User not signed up", error: err.message })
+        sendResponse(res, { statusCode: 500, success: false, message: err.message, error: err })
     }
 
 }
@@ -17,10 +17,10 @@ const userSignUp = async (req: Request, res: Response) => {
 const userSignIn = async (req: Request, res: Response) => {
     try {
         const result = await authService.userSignInQuery(req.body)
-        sendResponse(res, { statusCode: 200, success: true, message: "User signed in", data: result })
+        sendResponse(res, { statusCode: 200, success: true, message: " Login successful", data: result })
     }
     catch (err: any) {
-        sendResponse(res, { statusCode: 404, success: false, message: "User not Found", error: err.message })
+        sendResponse(res, { statusCode: 404, success: false, message: err.message, error: err })
     }
 }
 

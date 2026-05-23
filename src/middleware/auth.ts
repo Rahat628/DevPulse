@@ -3,7 +3,6 @@ import type { UserRole } from "../types";
 import jwt, { type JwtPayload } from "jsonwebtoken";
 import { pool } from "../db/initDB";
 import config from "../config";
-import { sendResponse } from "../utils/sendResponse";
 
 // this auth checks jwtToken and also checks if the user has the require role and valid user or not
 
@@ -36,9 +35,7 @@ const auth = (...roles: UserRole[]) => {
 
         }
         catch (err: any) {
-            sendResponse( res, { statusCode: 401, success: false, message: err.message, error: err })
-
-
+            next(err)
         }
 
     }
